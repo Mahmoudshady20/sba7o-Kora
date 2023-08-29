@@ -62,7 +62,7 @@ class _TimerAppState extends State<TimerApp> {
                             borderRadius: BorderRadius.circular(25)),
                         child: const Text('Restart'),
                         onPressed: () {
-                          value.secondsPassed = 0;
+                          value.secondsPassed = 30;
                           value.isActive = true;
                         },
                       ),
@@ -101,6 +101,22 @@ class _TimerAppState extends State<TimerApp> {
                     ),
                   ),
                 ],
+              ),
+              Container(
+                width:  double.infinity,// MediaQuery.of(context).size.width * 0.28,
+                height: 47,
+                margin: const EdgeInsets.all(8),
+                child: Consumer<TimerViewModel>(
+                  builder: (context, value, child) => MaterialButton(
+                    color: Colors.pink[200],
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Text('Add 5 second'),
+                    onPressed: () {
+                      value.secondsPassed +=5;
+                    },
+                  ),
+                ),
               ),
             ],
           ),
