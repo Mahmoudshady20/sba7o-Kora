@@ -10,8 +10,8 @@ class TimerLabelText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5),
-      padding: EdgeInsets.all(20),
+      margin: const EdgeInsets.symmetric(horizontal: 5),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
         color: Colors.teal,
@@ -21,12 +21,12 @@ class TimerLabelText extends StatelessWidget {
         children: [
           Text(
             '$timevalue',
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white, fontSize: 55, fontWeight: FontWeight.bold),
           ),
           Text(
             '$label',
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white70,
             ),
           ),

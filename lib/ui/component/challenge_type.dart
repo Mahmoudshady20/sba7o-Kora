@@ -13,13 +13,18 @@ class ChallengeType extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           border: Border.all(
             color: const Color(0xFFc5c5c5),
-          )),
+          ),
+      color: Theme.of(context).primaryColor,
+      ),
       height: MediaQuery.of(context).size.height * .40,
       width: double.infinity,
       child: Column(
         children: [
           Expanded(flex: 2, child: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(15),
+              topLeft: Radius.circular(15),
+            ),
             child: Image.asset(
                 challengeModel.imageString,
             width: double.infinity,
@@ -39,7 +44,7 @@ class ChallengeType extends StatelessWidget {
                     ),
                     Text(
                       challengeModel.nameOfChallenge,
-                      style: const TextStyle(fontSize: 22, color: Color(0xFFF6F6F6)),
+                      style:Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(
                       height: 10,
@@ -71,13 +76,13 @@ class ChallengeType extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton(
-                            onPressed: () {}, child: const Text('Show rules',style: TextStyle(color: Colors.white),)),
+                            onPressed: () {}, child: Text('Show rules',style: Theme.of(context).textTheme.labelLarge,)),
                         const SizedBox(
                           width: 5,
                         ),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF0174e9),
+                                backgroundColor: Theme.of(context).hintColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15))),
                             onPressed: () {

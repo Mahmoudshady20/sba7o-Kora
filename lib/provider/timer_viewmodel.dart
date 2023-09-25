@@ -5,7 +5,7 @@ class TimerViewModel extends ChangeNotifier{
   static const duration = const Duration(seconds: 1);
   int secondsPassed = 30;
   bool isActive = false;
-
+  bool showName = true;
   Timer? timer;
   void handleTick() {
     if(secondsPassed> 0){

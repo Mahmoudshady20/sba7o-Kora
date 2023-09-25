@@ -12,22 +12,42 @@ class TimerApp extends StatefulWidget {
 class _TimerAppState extends State<TimerApp> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    var playerName = ModalRoute.of(context)?.settings.arguments as String;
+    return ChangeNotifierProvider<TimerViewModel>(
       create: (context) => TimerViewModel()..beginTimer(),
       child: Scaffold(
-        backgroundColor: const Color(0xFF121212),
         appBar: AppBar(
           title: const Text(
             'Timer',
             style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
           ),
-          backgroundColor: const Color(0xFF0a0a0a),
           centerTitle: true,
         ),
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              /// player Name
+             Consumer<TimerViewModel>(
+               builder: (context, value, child) => Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    margin: const EdgeInsets.symmetric(horizontal: 12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                       value.showName ?  playerName : '',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                  ),
+             ),
+              const SizedBox(
+                height: 60,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -102,21 +122,42 @@ class _TimerAppState extends State<TimerApp> {
                   ),
                 ],
               ),
-              Container(
-                width:  double.infinity,// MediaQuery.of(context).size.width * 0.28,
-                height: 47,
-                margin: const EdgeInsets.all(8),
-                child: Consumer<TimerViewModel>(
-                  builder: (context, value, child) => MaterialButton(
-                    color: Colors.pink[200],
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
-                    child: Text('Add 5 second'),
-                    onPressed: () {
-                      value.secondsPassed +=5;
-                    },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width:  MediaQuery.of(context).size.width * 0.40,
+                    height: 47,
+                    margin: const EdgeInsets.all(8),
+                    child: Consumer<TimerViewModel>(
+                      builder: (context, value, child) => MaterialButton(
+                        color: Colors.pink[200],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)),
+                        child: Text(value.showName ? 'Hide Name' : 'Show Name'),
+                        onPressed: () {
+                          value.showName = !value.showName;
+                        },
+                      ),
+                    ),
                   ),
-                ),
+                  Container(
+                    width:  MediaQuery.of(context).size.width * 0.40,
+                    height: 47,
+                    margin: const EdgeInsets.all(8),
+                    child: Consumer<TimerViewModel>(
+                      builder: (context, value, child) => MaterialButton(
+                        color: Colors.pink[200],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)),
+                        child: Text('Add 5 second'),
+                        onPressed: () {
+                          value.secondsPassed +=5;
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

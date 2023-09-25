@@ -15,16 +15,14 @@ class PasswordScreen extends StatefulWidget {
 class _PasswordScreenState extends State<PasswordScreen> {
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute.of(context)?.settings.arguments as String;
+    var titleOfChallenge = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
-      backgroundColor:  Colors.blueGrey[900],
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          args,
-          style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
+          titleOfChallenge,
+          style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
         ),
-        backgroundColor: Colors.blueGrey[800],
       ),
       body: ChangeNotifierProvider(
         create: (context) => PasswordViewModel(),
@@ -42,13 +40,12 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(18),
-                      color: const Color(0xFF0376eb),
+                      color: Theme.of(context).hintColor,
                     ),
                     child: Center(
                         child: Text(
                       'Round ${value.round}/8',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500, color: Colors.white),
+                      style: Theme.of(context).textTheme.labelSmall,
                     )),
                   ),
                 ),
@@ -56,25 +53,21 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 Consumer<PasswordViewModel>(
                   builder: (context, value, child) => Container(
                     margin: const EdgeInsets.only(right: 15, top: 15),
-                    child: GestureDetector(
+                    child: InkWell(
                       onTap: () {
                         value.changePhoto();
                       },
-                      child: const Row(
+                      child:  Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.refresh,
-                            color: Colors.white,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 3,
                           ),
                           Text(
                             'Pick another one',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                                fontSize: 18),
+                            style: Theme.of(context).textTheme.labelMedium,
                           )
                         ],
                       ),
@@ -106,26 +99,27 @@ class _PasswordScreenState extends State<PasswordScreen> {
               builder: (context, value, child) => Container(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 0.06,
-                margin: EdgeInsets.symmetric(horizontal: 12),
+                margin: const EdgeInsets.symmetric(horizontal: 12),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Color(0xFF1c1c1e)),
+                    color: Theme.of(context).primaryColor,
+                ),
                 child: Center(
                   child: Text(
                     value.names[value.indexx],
-                    style: const TextStyle(fontSize: 25, color: Colors.white),
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             /// change player
             Consumer<PasswordViewModel>(
               builder: (context, value, child) => Column(
                 children: [
                   /// start timer
-                  Container(
-                      margin: EdgeInsets.only(
+                  titleOfChallenge != '3la al6ayr'?  Container(
+                      margin: const EdgeInsets.only(
                           left: 10,
                           right: 10,
                           bottom: 8
@@ -134,20 +128,21 @@ class _PasswordScreenState extends State<PasswordScreen> {
                       height: MediaQuery.of(context).size.height * 0.06,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).hintColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                               )),
                           onPressed: () {
-                            Navigator.pushNamed(context, TimerApp.routeName);
+                            Navigator.pushNamed(context, TimerApp.routeName,arguments: value.names[value.indexx]);
                           },
-                          child: Text(
+                          child: const Text(
                               'START TIMER',
                           )
                       )
-                  ),
+                  ) : Container(),
                   /// next round
                   Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                         left: 10,
                       right: 10,
                       bottom: 8
@@ -157,9 +152,10 @@ class _PasswordScreenState extends State<PasswordScreen> {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
+                            elevation: 0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
-                              side: BorderSide(
+                              side: const BorderSide(
                                 color: Color(0xFF818181),
                               )
                             )),
@@ -173,6 +169,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         },
                         child: Text(
                             'NEXT ROUND >',
+                          style: Theme.of(context).textTheme.labelMedium,
                         )
                     ),
                   ),

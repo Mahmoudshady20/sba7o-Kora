@@ -6,14 +6,14 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, HomeScreen.routeName);
     });
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                'assets/images/background.png',
+                'assets/images/backgrond2.png',
               ),
               fit: BoxFit.fill)),
       child: Scaffold(
